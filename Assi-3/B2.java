@@ -19,5 +19,6 @@ public class B2 {
         } catch (InvalidNameException e) {
             System.out.println(e.getMessage());
         }
+        sc.close();
     }
 }
