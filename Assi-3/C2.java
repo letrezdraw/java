@@ -42,10 +42,15 @@ class C2 {
         Scanner sc = new Scanner(System.in);
         try {
             System.out.println("Enter date (day month year):");
-            MyDate md = new MyDate(sc.nextInt(), sc.nextInt(), sc.nextInt());
+            int d = sc.nextInt();
+            int m = sc.nextInt();
+            int y = sc.nextInt();
+            MyDate md = new MyDate(d, m, y);
             System.out.println(md);
-        } catch (Exception e) {
-            System.out.println(e);
+        } catch (InvalidDateException e) {
+            System.out.println("Invalid date: " + e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input: Please enter integers for day, month, and year.");
         } finally {
             sc.close();
         }
