@@ -10,15 +10,14 @@ public class B2 {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter Doctor Name: ");
-        String doctorName = sc.nextLine();
-        try {
-            validateName(doctorName);
-            System.out.println("Doctor Name: " + doctorName);
-        } catch (InvalidNameException e) {
-            System.out.println(e.getMessage());
-        }
-        sc.close();
-    }
+        try (Scanner sc = new Scanner(System.in)) {
+            System.out.print("Enter Doctor Name: ");
+            String doctorName = sc.nextLine();
+            try {
+                validateName(doctorName);
+                System.out.println("Doctor Name: " + doctorName);
+            } catch (InvalidNameException e) {
+                System.out.println(e.getMessage());
+            }
+        }    }
 }
