@@ -31,7 +31,7 @@ class C1 {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Please enter a valid number!");
-                    sc.nextLine(); // Clear the invalid input
+                    sc.nextLine(); // if anyinput is notclear it will be removed from here
                 }
             }
         }

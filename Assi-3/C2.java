@@ -19,7 +19,6 @@ class MyDate {
         if (m == 4 || m == 6 || m == 9 || m == 11) {
             maxDays = 30;
         } else if (m == 2) {
-            // Check for leap year
             boolean isLeapYear = (y % 4 == 0 && y % 100 != 0) || (y % 400 == 0);
             maxDays = isLeapYear ? 29 : 28;
         }
@@ -31,16 +30,15 @@ class MyDate {
         this.m = m;
         this.y = y;
     }
-    
+    @Override
     public String toString() {
         return String.format("%02d/%02d/%04d", d, m, y);
     }
 }
 
-class C2 {
+public class C2 {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        try {
+        try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Enter date (day month year):");
             int d = sc.nextInt();
             int m = sc.nextInt();
@@ -51,8 +49,6 @@ class C2 {
             System.out.println("Invalid date: " + e.getMessage());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input: Please enter integers for day, month, and year.");
-        } finally {
-            sc.close();
         }
     }
 }
