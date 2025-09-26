@@ -1,8 +1,8 @@
-import java.awt.*;
 import javax.swing.*;
-public class A2 {
+import java.awt.*;
+public class VaccinationDetailsExactUI {
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(A2::createUI);
+        SwingUtilities.invokeLater(VaccinationDetailsExactUI::createUI);
     }
     private static void createUI() {
         JFrame frame = new JFrame("Vaccination Details");
