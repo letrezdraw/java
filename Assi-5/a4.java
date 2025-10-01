@@ -1,55 +1,36 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class a4{
-	public static void main(String args[]){
-		Scanner scanner = new Scanner(System.in);
-		try{
-			Class.forName("org.postgresql.Driver");
-			Connection con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/person","postgres","person");
-			Statement stmt = con.createStatement();
-			String sql = "INSERT INTO employee(id, name, salary) VALUES (?, ?, ?)";
-            PreparedStatement pstmt = con.prepareStatement(sql);
+public class a4 {
+    public static void main(String[] a) {
+        try (Scanner s = new Scanner(System.in);
+             Connection c = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/person", "postgres", "person");
+             PreparedStatement ps = c.prepareStatement("INSERT INTO employee(id, name, salary) VALUES (?, ?, ?)")) {
+
+            Class.forName("org.postgresql.Driver");
 
             System.out.println("Enter number of employees to insert:");
-            int n = Integer.parseInt(scanner.nextLine());
+            int n = Integer.parseInt(s.nextLine());
 
-            for (int i = 0; i < n; i++) {
-                System.out.println("Enter details for employee " + (i + 1));
+            for (int i = 1; i <= n; i++) {
+                System.out.println("Enter details for employee " + i);
 
                 System.out.print("ID: ");
-                int id = Integer.parseInt(scanner.nextLine());
+                ps.setInt(1, Integer.parseInt(s.nextLine()));
 
                 System.out.print("Name: ");
-                String name = scanner.nextLine();
+                String name = s.nextLine();
+                ps.setString(2, name);
 
                 System.out.print("Salary: ");
-                float salary = Float.parseFloat(scanner.nextLine());
+                ps.setFloat(3, Float.parseFloat(s.nextLine()));
 
-                pstmt.setInt(1, id);
-                pstmt.setString(2, name);
-                pstmt.setFloat(3, salary);
-
-                int rows = pstmt.executeUpdate();
-
-                if (rows > 0) {
-                    System.out.println("Employee " + name + " inserted successfully.");
-                } else {
-                    System.out.println("Insertion failed for employee " + name);
-                }
+                System.out.println(ps.executeUpdate() > 0 ?
+                    "Employee " + name + " inserted successfully." :
+                    "Insertion failed for employee " + name);
             }
-
-            pstmt.close();
-            con.close();
-
-        } catch (ClassNotFoundException e) {
-            System.out.println("PostgreSQL JDBC Driver not found.");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Database error occurred.");
-            e.printStackTrace();
-        } finally {
-            scanner.close();
+        } catch (Exception e) {
+            System.err.println("An error occurred: " + e.getMessage());
         }
     }
 }
