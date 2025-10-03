@@ -49,7 +49,7 @@ public class NotepadUI {
         JMenu helpMenu = new JMenu("Help");
         menuBar.add(helpMenu);
 
-        // Add menu bar to frame
+        // Add
         frame.setJMenuBar(menuBar);
 
         frame.setVisible(true);
