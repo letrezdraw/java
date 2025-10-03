@@ -1,47 +1,48 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
-public class B3 extends JFrame implements ActionListener {
-    JLabel l1, l2;
-    JTextField t1;
-    JPasswordField p1;
-    JButton b1, b2;
-    public B3() {
-        l1 = new JLabel("Username");
-        l1.setBounds(50, 50, 100, 30);
-        t1 = new JTextField();
-        t1.setBounds(150, 50, 150, 30);
-        l2 = new JLabel("Password");
-        l2.setBounds(50, 100, 100, 30);
-        p1 = new JPasswordField();
-        p1.setBounds(150, 100, 150, 30);
-        b1 = new JButton("Login");
-        b1.setBounds(50, 150, 100, 30);
-        b1.addActionListener(this);
-        b2 = new JButton("Reset");
-        b2.setBounds(200, 150, 100, 30);
-        b2.addActionListener(this);
-        add(l1); add(t1); add(l2); add(p1); add(b1); add(b2);
-        setSize(400, 300);
-        setLayout(null);
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == b1) {
-            String username = t1.getText().trim();
-            String password = new String(p1.getPassword()).trim();
-            if (!username.isEmpty() && !password.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Login Success");
-            } else {
-                JOptionPane.showMessageDialog(this, "Login Fail");
-            }
-        } else if (e.getSource() == b2) {
-            t1.setText("");
-            p1.setText("");
-        }
-    }
+import java.awt.*;
+
+public class CalculatorUI {
     public static void main(String[] args) {
-        new B3();
+        SwingUtilities.invokeLater(CalculatorUI::createUI);
+    }
+
+    private static void createUI() {
+        JFrame frame = new JFrame("Calculator");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout(10, 10));
+
+        // ===== Display field =====
+        JTextField display = new JTextField();
+        display.setEditable(false);
+        display.setFont(new Font("Arial", Font.BOLD, 18));
+        frame.add(display, BorderLayout.NORTH);
+
+        // ===== Buttons panel =====
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 4, 10, 10));
+
+        // Buttons (like in image)
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            ".", "0", "+", "="
+        };
+
+        for (String text : buttons) {
+            JButton btn = new JButton(text);
+            btn.setFont(new Font("Arial", Font.BOLD, 16));
+            buttonPanel.add(btn);
+        }
+
+        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        // ===== Clear button =====
+        JButton clearBtn = new JButton("Clear");
+        clearBtn.setFont(new Font("Arial", Font.BOLD, 16));
+        frame.add(clearBtn, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
     }
 }
