@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class B3 {
     public static void main(String[] args) {
@@ -22,7 +23,6 @@ public class B3 {
         // ===== Buttons panel =====
         JPanel buttonPanel = new JPanel(new GridLayout(4, 4, 10, 10));
 
-        // Buttons (like in image)
         String[] buttons = {
             "7", "8", "9", "/",
             "4", "5", "6", "*",
@@ -33,6 +33,26 @@ public class B3 {
         for (String text : buttons) {
             JButton btn = new JButton(text);
             btn.setFont(new Font("Arial", Font.BOLD, 16));
+
+            // Action listener for each button
+            btn.addActionListener(e -> {
+                String btnText = ((JButton)e.getSource()).getText();
+
+                if (btnText.equals("=")) {
+                    try {
+                        // Evaluate the expression using ScriptEngine
+                        javax.script.ScriptEngine engine =
+                                new javax.script.ScriptEngineManager().getEngineByName("JavaScript");
+                        String result = engine.eval(display.getText()).toString();
+                        display.setText(result);
+                    } catch (Exception ex) {
+                        display.setText("Error");
+                    }
+                } else {
+                    display.setText(display.getText() + btnText);
+                }
+            });
+
             buttonPanel.add(btn);
         }
 
@@ -41,6 +61,7 @@ public class B3 {
         // ===== Clear button =====
         JButton clearBtn = new JButton("Clear");
         clearBtn.setFont(new Font("Arial", Font.BOLD, 16));
+        clearBtn.addActionListener(e -> display.setText(""));
         frame.add(clearBtn, BorderLayout.SOUTH);
 
         frame.setVisible(true);
