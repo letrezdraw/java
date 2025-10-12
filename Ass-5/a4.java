@@ -7,7 +7,6 @@ public class a4{
 		try{
 			Class.forName("org.postgresql.Driver");
 			Connection con = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/person","postgres","person");
-			Statement stmt = con.createStatement();
 			String sql = "INSERT INTO employee(id, name, salary) VALUES (?, ?, ?)";
             PreparedStatement pstmt = con.prepareStatement(sql);
 
